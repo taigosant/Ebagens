@@ -4,14 +4,14 @@ import cv2 as cv
 img = cv.imread('teste1.jpg')
 
 
-print "showing the original image... press any key to close"
+print("showing the original image... press any key to close")
 cv.imshow('image1', img)
 cv.waitKey(0)
 cv.destroyAllWindows()
 
 
 def __getInput():
-    raw = raw_input("Enter the percent of brightness desired to apply and the operator."
+    raw = input("Enter the percent of brightness desired to apply and the operator."
                     " Ex: \"+ 30\" to increase the brightness or \"- 30\" to decrease.\n> ")
     params = raw.split()
     return params[0], int(params[1])
