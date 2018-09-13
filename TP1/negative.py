@@ -1,9 +1,9 @@
 import numpy as np
 import cv2 as cv
 
-img = cv.imread('edleno_hexa.jpg')
+img = cv.imread('aventura.jpg')
 
-print("showing the original image... press any key to close")
+print("Showing the original image... press any key to close.")
 cv.imshow('image1', img)
 cv.waitKey(0)
 cv.destroyAllWindows()
