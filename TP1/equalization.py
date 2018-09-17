@@ -6,7 +6,6 @@ img = cv.imread('aventura.jpg')
 greyImga = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 cv.imshow('press any key to close 1111', greyImga)
 cv.waitKey(0)
-cv.destroyAllWindows()
 
 
 def histogramGrey(image, cord):  # histograma global cinza

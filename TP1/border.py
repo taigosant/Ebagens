@@ -7,7 +7,7 @@ img = cv.imread('balo.jpg')
 greyImga = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 cv.imshow('press any key to close 1111', greyImga)
 cv.waitKey(0)
-cv.destroyAllWindows()
+# cv.destroyAllWindows()
 
 def _reduceColor(pixel): # funcao responsavel por mapear uma cor do padrao rgb (255) para um padrao com 64 cores
     if pixel < 64:
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     neoImage = borderDetectionGrey(greyImga, 100, convX, convY)
     cv.imshow('press any key to close 2222', neoImage)
     cv.waitKey(0)
-    cv.destroyAllWindows()
+    # cv.destroyAllWindows()
 
     greyImga = colorQuantizationGrey(greyImga)
 
