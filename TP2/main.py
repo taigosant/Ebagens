@@ -33,7 +33,7 @@ def get_frames(path, window):
 
 
 if __name__ == '__main__':
-    frames = get_frames("/home/taigo/Documents/2018.2/ebagens/Ebagens/TP2/The Last Night on Xbox One - 4K Trailer.mp4", 10)
+    frames = get_frames("/home/taigo/Documents/2018.2/ebagens/Ebagens/TP2/The Last Night on Xbox One - 4K Trailer.mp4", 20)
     # printing
     # print(frames)
     # print(len(frames))
@@ -41,9 +41,11 @@ if __name__ == '__main__':
     # writes each frame in a image
 
     # for i in range(0, len(frames)):
-    #     cv.imwrite("frames/"+str(i)+".jpg", frames[i])
-    shots = [0]
-    limiar = 30000
+    #     cv.imwrite("frames/"+str(i)+".jpg", frames[i]['frame'])
+
+    shotsFramesInterval = [0]
+    shotsMSecsInterval = [0]
+    limiar = 70000
     for i in range(1, len(frames)):
         previousFrame = frames[i-1]['frame']
         curFrame = frames[i]['frame']
@@ -62,20 +64,16 @@ if __name__ == '__main__':
         meanHistBorder = sum([borderHistRsim, borderHistGsim, borderHistBsim]) / 3
         meanHistInner = sum([innerHistRsim, innerHistGsim, innerHistBsim]) / 3
 
-        if ((meanHistInner + meanHistBorder) / 2) > limiar:
+        if meanHistBorder > limiar or meanHistInner > limiar:
             print('shot transition detected at frame', i)
             print(meanHistBorder, meanHistInner)
-            shots.append(i)
+            shotsFramesInterval.append(i)
+            shotsMSecsInterval.append(frames[i]['time'])
 
-        # print()
-        # print('\n')
-        # print(innerHistRsim, innerHistGsim, innerHistBsim)
-        # print('--------------------------------')
+    print(shotsFramesInterval)
+    print(shotsMSecsInterval)
 
-        # print(borderHistsPrevious,'\n', innerHistsPrevious)
-        # print('--------------------------------------------------\n'
-        #       '----------------------------------------------------')
-        # print(borderHistsCur, '\n', borderHistsCur, '\n')
+
 
 
 

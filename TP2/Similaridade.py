@@ -7,7 +7,7 @@ class Similarity():
     @staticmethod
     def euclidean_distance(x, y):
         # print("Usando a distancia euclidana")
-        print(x, y)
+        # print(x, y)
         return sqrt(sum(pow(a - b, 2) for a, b in zip(x, y)))
 
     @staticmethod
