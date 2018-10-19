@@ -41,15 +41,38 @@ def colorQuantization(image): # atribui a reducao de cor para cada pixel de uma 
     return image
 
 
-def check_neighbors(image, i, j):
-    for c in range(3):
-        color = image[i][j][c]
-        if image[i][j+1][c] != color: return True
-        if image[i][j-1][c] != color: return True
-        if image[i+1][j][c] != color: return True
-        if image[i-1][j][c] != color: return True
+def colorQuantizationGrey(image): # atribui a reducao de cor para cada pixel de uma imagem
+    linhas = len(image)
+    colunas = len(image[0])
+    for i in range(linhas):
+        for j in range(colunas):
+            pixel = image[i][j]
+            image[i][j] = _reduceColor(pixel)
+    return image
 
-    return False
+
+def check_neighbors(image, i, j, grey=False):
+    if grey:
+        color = image[i][j]
+        if image[i][j + 1] != color:
+            return True
+        if image[i][j - 1] != color:
+            return True
+        if image[i + 1][j] != color:
+            return True
+        if image[i - 1][j] != color:
+            return True
+
+        return False
+    else:
+        for c in range(3):
+            color = image[i][j][c]
+            if image[i][j+1][c] != color: return True
+            if image[i][j-1][c] != color: return True
+            if image[i+1][j][c] != color: return True
+            if image[i-1][j][c] != color: return True
+
+        return False
 
 
 def bic(image):
@@ -66,7 +89,7 @@ def bic(image):
     histInnerG = np.zeros(4)
     histInnerB = np.zeros(4)
 
-    bicImg = np.zeros((linhas, colunas))
+    # bicImg = np.zeros((linhas, colunas))
 
     for i in range(1, linhas-1):
         for j in range(1, colunas-1):
@@ -84,12 +107,42 @@ def bic(image):
                 histInnerR[red] += 1
                 histInnerG[green] += 1
                 histInnerB[blue] += 1
-                bicImg[i][j] = 255
+                # bicImg[i][j] = 255
 
-    cv.imwrite('bic.jpg', bicImg)
+    # cv.imwrite('bic.jpg', bicImg)
 
     return [histBorderR, histBorderG, histBorderB], [histInnerR, histInnerG, histInnerB]
 
+
+def bicGrey(image):
+    image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+
+    linhas = len(image)
+    colunas = len(image[0])
+
+    image = colorQuantizationGrey(image)
+
+    histBorder = np.zeros(4)
+
+    histInner = np.zeros(4)
+
+    # bicImg = np.zeros((linhas, colunas))
+
+    for i in range(1, linhas-1):
+        for j in range(1, colunas-1):
+            is_border = check_neighbors(image, i, j, grey=True)
+
+            color = _mapColor(image[i][j])
+
+            if is_border:
+                histBorder[color] += 1
+            else:
+                histInner[color] += 1
+                # bicImg[i][j] = 255
+
+    # cv.imwrite('bic.jpg', bicImg)
+
+    return histBorder, histInner
 
 # if __name__ == '__main__':
 #     print(bic(img))
