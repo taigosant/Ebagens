@@ -43,7 +43,8 @@ def generateRuidPepperSalt(image, value):  # gerador de imagens com ruido tipo s
     for i in range(0, len(image)):
         randomPositions= np.random.randint(colunas, size=percent)
         for pos in randomPositions:
-            if np.random.randint(0, 2, size=1)[0] == 1:
+            if np.random.randint(0, 2
+                    , size=1)[0] == 1:
                 image[i][pos] = 255
             else:
                 image[i][pos] = 0

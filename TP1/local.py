@@ -83,7 +83,7 @@ if __name__ == '__main__':
     with open("histLocalBlue.txt", 'w') as file:
         file.write(str(histsB))
 
-    for freq in histsR:
+    for freq in histsG:
         frequencies = freq
         labels = range(256)
         pos = np.arange(256)
@@ -93,5 +93,5 @@ if __name__ == '__main__':
         ax.set_xticks(pos)
         ax.set_xticklabels(labels)
 
-        plt.bar(pos, frequencies, width, color='r')
+        plt.bar(pos, frequencies, width, color='g')
         plt.show()

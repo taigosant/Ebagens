@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import cv2 as cv
 
-img = cv.imread('aventura.jpg')
+img = cv.imread('euq.jpg')
 greyImga = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 cv.imshow('press any key to close 1111', greyImga)
 cv.waitKey(0)
@@ -65,24 +65,24 @@ if __name__ == '__main__':
     }
 
     #fatiamento
-    # neoImage = transfRadioBW(greyImga)
-    # cv.imshow('press any key to close 2222', neoImage)
-    # cv.waitKey(0)
-    # cv.destroyAllWindows()
-
-    # histograma de imagem em tons de cinza
-    GreyHist, listFreq = histogramGrey(greyImga, cordenadas)
-    print(GreyHist, listFreq)
-    plt.hist(listFreq, bins=256, facecolor='g')
-    plt.show()
-
-    neoImage = histogramEqualization(greyImga, GreyHist)
-
-    GreyHist, listFreq = histogramGrey(neoImage, cordenadas)
-    print(GreyHist, listFreq)
-    plt.hist(listFreq, bins=256, facecolor='b')
-    plt.show()
-
+    neoImage = transfRadioBW(greyImga)
     cv.imshow('press any key to close 2222', neoImage)
     cv.waitKey(0)
     cv.destroyAllWindows()
+
+    # histograma de imagem em tons de cinza
+    # GreyHist, listFreq = histogramGrey(greyImga, cordenadas)
+    # print(GreyHist, listFreq)
+    # plt.hist(listFreq, bins=256, facecolor='g')
+    # plt.show()
+    #
+    # neoImage = histogramEqualization(greyImga, GreyHist)
+    #
+    # GreyHist, listFreq = histogramGrey(neoImage, cordenadas)
+    # print(GreyHist, listFreq)
+    # plt.hist(listFreq, bins=256, facecolor='b')
+    # plt.show()
+    #
+    # cv.imshow('press any key to close 2222', neoImage)
+    # cv.waitKey(0)
+    # cv.destroyAllWindows()
