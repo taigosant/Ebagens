@@ -12,3 +12,5 @@ TP2/\.idea/
 TP2/venv/
 
 TP2/__pycache__/
+
+*.mp4
