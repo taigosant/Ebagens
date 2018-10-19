@@ -52,7 +52,6 @@ def getShotsIntervals(path, window, limiar, grey=True):
 
             innerHistDistance = Similarity.euclidean_distance(innerHistPrevious, innerHistCur)
 
-
             if borderHistDistance > limiar or innerHistDistance > limiar:
                 print('shot transition detected at frame', i)
                 print(borderHistDistance, innerHistDistance)
@@ -91,12 +90,17 @@ def getShotsIntervals(path, window, limiar, grey=True):
 
 
 if __name__ == '__main__':
-    print(
-        getShotsIntervals("/home/taigo/Documents/2018.2/ebagens/Ebagens/TP2/The Last Night on Xbox One - 4K Trailer.mp4",
-                          20,
-                          50000,
+    shotsIntervel, timeInterval = getShotsIntervals(
+        "/home/taigo/Documents/2018.2/ebagens/Ebagens/TP2/The Last Night on Xbox One - 4K Trailer.mp4",
+                          10,
+                          40000,
                           grey=True)
-    )
+
+    with open("out.txt", 'w+') as file:
+        file.write(str(shotsIntervel))
+        file.write('\n')
+        file.write(str(timeInterval))
+
 
 
 
