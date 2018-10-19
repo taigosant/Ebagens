@@ -36,7 +36,9 @@ def getShotsIntervals(path, window, limiar, grey=True):
 
     shotsFramesInterval = [0]
     shotsMSecsInterval = [0]
-
+    significants =[]
+    previousPos = 0
+    curPos = 0
     for i in range(0, len(frames)):
         cv.imwrite("frames/"+str(i)+".jpg", frames[i]['frame'])
 
@@ -52,9 +54,16 @@ def getShotsIntervals(path, window, limiar, grey=True):
 
             innerHistDistance = Similarity.euclidean_distance(innerHistPrevious, innerHistCur)
 
+            print(i, borderHistDistance, innerHistDistance)
+
             if borderHistDistance > limiar or innerHistDistance > limiar:
+                curPos = i
+                mediana = int((curPos + previousPos) / 2)
+                previousPos = curPos
                 print('shot transition detected at frame', i)
+                print('significant frame of the shot detected ... ', mediana)
                 print(borderHistDistance, innerHistDistance)
+                significants.append(mediana)
                 shotsFramesInterval.append(i)
                 shotsMSecsInterval.append(frames[i]['time'])
 
@@ -86,20 +95,22 @@ def getShotsIntervals(path, window, limiar, grey=True):
                 shotsFramesInterval.append(i)
                 shotsMSecsInterval.append(frames[i]['time'])
 
-    return shotsFramesInterval, shotsMSecsInterval
+    return shotsFramesInterval, shotsMSecsInterval, significants
 
 
 if __name__ == '__main__':
-    shotsIntervel, timeInterval = getShotsIntervals(
-        "/home/taigo/Documents/2018.2/ebagens/Ebagens/TP2/The Last Night on Xbox One - 4K Trailer.mp4",
-                          10,
-                          40000,
+    shotsIntervel, timeInterval,  significants = getShotsIntervals(
+        "/home/taigo/Documents/2018.2/ebagens/Ebagens/TP2/chaves.mp4",
+                          20,
+                          10000,
                           grey=True)
 
     with open("out.txt", 'w+') as file:
         file.write(str(shotsIntervel))
         file.write('\n')
         file.write(str(timeInterval))
+        file.write('\n')
+        file.write(str(significants))
 
 
 
